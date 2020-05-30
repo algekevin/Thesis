@@ -2,11 +2,9 @@ library(openxlsx)
 library(e1071) # svm
 library(GLDEX) # which.na
 library(caret) # varImp
-#library(formula.tools) # To print formula correctly in function.
 library(leaps) # regsubsets()
 library(glmnet) # Lasso/Ridge
 library(MASS) # LDA/QDA
-#library(bestglm) # bestglm()
 library(dplyr) # Both this and stringr used to get factors as a formula for LASSO.
 library(stringr)
 library(kernlab) # GPs for classification with gausspr(...)
@@ -17,12 +15,7 @@ library(MLeval) # for evalm(...)
 library(CAST) # for bss(...)
 # https://rdrr.io/cran/kernlab/man/gausspr.html reference for kernlab
 
-data <- read.xlsx("School/Thesis Stuff/League Data/2019-summer-match-data-clean.xlsx", 1)
-
 data <- read.xlsx("League Data/2019-summer-match-data-clean.xlsx", 1) # Laptop updated.
-
-#data <- read_excel("D:/School/Cal Poly/Thesis Stuff/League Stuff/Data/2019-summer-match-data-clean.xlsx") # Desktop
-data <- read.xlsx("D:/School/Cal Poly/Thesis Stuff/League Stuff/Data/2019-summer-match-data-clean.xlsx", 1)
 
 data <- as.data.frame(unclass(data))
 data <- data[,-c(1:5)]
