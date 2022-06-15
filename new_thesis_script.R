@@ -15,7 +15,7 @@ library(MLeval) # for evalm(...)
 library(CAST) # for bss(...)
 # https://rdrr.io/cran/kernlab/man/gausspr.html reference for kernlab
 
-data <- read.xlsx("League Data/2019-summer-match-data-clean.xlsx", 1) # Laptop updated.
+data <- read.xlsx("2019-summer-match-data-clean.xlsx", 1) # Laptop updated.
 
 data <- as.data.frame(unclass(data))
 data <- data[,-c(1:5)]
@@ -254,8 +254,19 @@ preds <- function(fit){
 
 
 # doing 10-fold CV on m1, tr acc 0.7427
-caret.model <- train(resultB~jgB_gdat10 + jgB_gdat15 + midB_gdat15 + adcB_gdat15 + adcB_csdat10 + fdB, data=data.train, trControl=trainControl(method="cv", number=10, classProbs=T, summaryFunction=twoClassSummary, savePred=T), method="glm", family="binomial")
+caret.model <- train(resultB~jgB_gdat10 + jgB_gdat15 + midB_gdat15 + adcB_gdat15 + adcB_csdat10 + fdB, 
+                     data=data.train, 
+                     trControl=trainControl(method="cv", 
+                                            number=10, 
+                                            classProbs=T, 
+                                            summaryFunction=twoClassSummary, 
+                                            savePred=T), 
+                     method="glm", 
+                     family="binomial")
 caret.model
+
+m1_evals <- evalm(caret.model)
+m1_evals$roc
 
 m2_evals <- evalm(m2.caret)
 m2_evals$roc
